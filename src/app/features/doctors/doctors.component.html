@@ -1,0 +1,41 @@
+<section class="container-fluid">
+    <div class="row d-flex justify-content-end align-items-center mb-3">
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                New doctor
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Birthday</th>
+                        <th scope="col">Specialty</th>
+                        <th scope="col">Professional License</th>
+                        <th scope="col">Telephone</th>
+                        <th scope="col">Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (doctor of doctors; track $index) {
+                      <tr>
+                        <th scope="row">{{ doctor.fullName }}</th>
+                        <td>{{ doctor.birthday | date }}</td>
+                        <td>{{ doctor.specialty }}</td>
+                        <td>{{ doctor.professionalLicense }}</td>
+                        <td>{{ doctor.telephone }}</td>
+                        <td>{{ doctor.email }}</td>
+                      </tr>
+                      }
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-doctor-form-modal></app-doctor-form-modal>

@@ -14,7 +14,8 @@ export const apiResponseInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.error.code === 401) {
+      console.log(error);
+      if (error.status === 401) {
         sweetAlertService.toastAlert(error.error.message, 'info', "bottom");
         storageService.removeSessionItem('token');
         router.navigate(['authentication']);
