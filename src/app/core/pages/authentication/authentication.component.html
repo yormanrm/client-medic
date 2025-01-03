@@ -1,22 +1,42 @@
-<form [formGroup]="form" (keyup.enter)="logIn()" class="container">
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" name="username" id="username" formControlName="username" />
-        </div>
+<form [formGroup]="form" (keyup.enter)="logIn()" class="container py-5">
+  <div class="row mb-3">
+    <div class="col-12">
+      <p-floatlabel variant="in">
+        <input
+          pInputText
+          class="w-100"
+          id="username_label"
+          formControlName="username"
+          autocomplete="off"
+        />
+        <label for="username_label">Username</label>
+      </p-floatlabel>
     </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" id="password" formControlName="password" />
-        </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-12">
+      <p-floatlabel variant="in">
+        <p-password
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          formControlName="password"
+          id="password_label"
+          [feedback]="false"
+        />
+        <label for="password_label">Password</label>
+      </p-floatlabel>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn btn-primary w-100" (click)="logIn()" [disabled]="!form.valid">
-                Log In
-            </button>
-
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p-button
+        [styleClass]="'w-100'"
+        (click)="logIn()"
+        [disabled]="!form.valid"
+        size="large"
+        [raised]="true"
+        label="Log In"
+      />
     </div>
+  </div>
 </form>

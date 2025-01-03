@@ -8,11 +8,12 @@ import { IApiResponse } from '../../interfaces/api-response.interface';
 import { SweetalertService } from '../../services/sweetalert.service';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
+import { PrimeNGModule } from '../../../shared/modules/primeng.module';
 
 @Component({
   selector: 'core-authentication',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, PrimeNGModule],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.scss'
 })
