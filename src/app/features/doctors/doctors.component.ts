@@ -6,11 +6,12 @@ import { DoctorFormModalComponent } from './components/doctor-form-modal/doctor-
 import { IApiResponse } from '../../core/interfaces/api-response.interface';
 import { Subscription } from 'rxjs';
 import { SubscriptionsService } from '../../core/services/subscriptions.service';
+import { PrimeNGModule } from '../../shared/modules/primeng.module';
 
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [DatePipe, DoctorFormModalComponent],
+  imports: [DatePipe, DoctorFormModalComponent, PrimeNGModule],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.scss',
 })
@@ -18,7 +19,8 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   private service = inject(DoctorsService);
   private subscriptionService = inject(SubscriptionsService);
   private subscription: Subscription = new Subscription();
-  public doctors: IDoctor[] =[];
+  public visible: boolean = false;
+  public doctors: IDoctor[] = [];
 
   ngOnInit(): void {
     this.getDoctors();
@@ -35,8 +37,11 @@ export class DoctorsComponent implements OnInit, OnDestroy {
       },
       error: (error: IApiResponse) => {
         console.error(error);
-      }
+      },
     });
   }
 
+  handleVisibleChange(visible: boolean) {
+    this.visible = visible;
+  }
 }
