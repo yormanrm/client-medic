@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 import { IToken } from '../interfaces/token.interface';
-import { SweetalertService } from '../services/sweetalert.service';
 
 export const authenticationGuard: CanActivateFn = (route, state) => {
   const storage = inject(StorageService);

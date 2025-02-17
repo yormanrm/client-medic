@@ -4,21 +4,28 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, throwError } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
-import { SweetalertService } from '../services/sweetalert.service';
+import { ConfirmDialogService } from '../../shared/service/confirm-dialog.service';
 
 export const apiResponseInterceptor: HttpInterceptorFn = (req, next) => {
 
   const storageService = inject(StorageService);
-  const sweetAlertService = inject(SweetalertService);
   const router = inject(Router);
+  const confirmDialogService = inject(ConfirmDialogService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       console.log(error);
       if (error.status === 401) {
-        sweetAlertService.toastAlert(error.error.message, 'info', "bottom");
-        storageService.removeSessionItem('token');
-        router.navigate(['authentication']);
+        confirmDialogService.showConfirmDialog(
+          'Unauthorized',
+          error.error.message,
+          () => {
+            storageService.removeSessionItem('token');
+            router.navigate(['authentication']);
+          },
+          () => {},
+          false // No mostrar el botón de cancelar
+        );
       }
       return throwError(() => 
         new ApiResponse(error.error.code, error.error.error, error.error.message, error.error.data)
