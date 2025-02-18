@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { DoctorsService } from './services/doctors.service';
 import { IDoctor } from './interfaces/doctor.interface';
 import { DatePipe } from '@angular/common';
-import { DoctorFormModalComponent } from './components/doctor-form-modal/doctor-form-modal.component';
+import { DoctorFormDialogComponent } from './components/doctor-form-dialog/doctor-form-dialog.component';
 import { IApiResponse } from '../../core/interfaces/api-response.interface';
 import { Subscription } from 'rxjs';
 import { SubscriptionsService } from '../../core/services/subscriptions.service';
@@ -11,7 +11,7 @@ import { PrimeNGModule } from '../../shared/modules/primeng.module';
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [DatePipe, DoctorFormModalComponent, PrimeNGModule],
+  imports: [DatePipe, DoctorFormDialogComponent, PrimeNGModule],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.scss',
 })

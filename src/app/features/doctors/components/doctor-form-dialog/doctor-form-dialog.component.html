@@ -1,0 +1,132 @@
+<p-dialog
+  header="New doctor"
+  [(visible)]="visible"
+  (onHide)="onDialogHide()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '575px': '95vw' }"
+  [style]="{ width: '45vw', height: '80vh' }"
+>
+  <form [formGroup]="form" class="d-flex flex-column justify-content-between h-100 w-100">
+    <section class="m-auto container" id="form-wrapper">
+      <div class="row mb-3">
+        <div class="col-12">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              class="w-100"
+              id="fullName"
+              formControlName="fullName"
+              autocomplete="off"
+              [ngClass]="{ 'ng-dirty ng-invalid': form.get('fullName')?.invalid && form.get('fullName')?.dirty }"
+            />
+            <label for="fullName">Full Name</label>
+          </p-floatlabel>
+          <small *ngIf="form.get('fullName')?.invalid && form.get('fullName')?.dirty" class="text-danger">
+            {{ getErrorMessage('fullName') }}
+          </small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <p-floatlabel variant="in">
+            <p-datepicker
+              [numberOfMonths]="1"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%', cursor: 'pointer' }"
+              id="birthday"
+              [readonlyInput]="true"
+              [showIcon]="true"
+              [maxDate]="maxDate"
+              formControlName="birthday"
+            ></p-datepicker>
+            <label for="birthday">Birth Day</label>
+          </p-floatlabel>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              class="w-100"
+              id="specialty"
+              formControlName="specialty"
+              autocomplete="off"
+              [ngClass]="{ 'ng-dirty ng-invalid': form.get('specialty')?.invalid && form.get('specialty')?.dirty }"
+            />
+            <label for="specialty">Specialty</label>
+          </p-floatlabel>
+          <small *ngIf="form.get('specialty')?.invalid && form.get('specialty')?.dirty" class="text-danger">
+            {{ getErrorMessage('specialty') }}
+          </small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              class="w-100"
+              id="professionalLicense"
+              formControlName="professionalLicense"
+              autocomplete="off"
+              [ngClass]="{ 'ng-dirty ng-invalid': form.get('professionalLicense')?.invalid && form.get('professionalLicense')?.dirty }"
+            />
+            <label for="professionalLicense">Professional License</label>
+          </p-floatlabel>
+          <small *ngIf="form.get('professionalLicense')?.invalid && form.get('professionalLicense')?.dirty" class="text-danger">
+            {{ getErrorMessage('professionalLicense') }}
+          </small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              class="w-100"
+              id="telephone"
+              formControlName="telephone"
+              autocomplete="off"
+              [ngClass]="{ 'ng-dirty ng-invalid': form.get('telephone')?.invalid && form.get('telephone')?.dirty }"
+            />
+            <label for="telephone">Telephone</label>
+          </p-floatlabel>
+          <small *ngIf="form.get('telephone')?.invalid && form.get('telephone')?.dirty" class="text-danger">
+            {{ getErrorMessage('telephone') }}
+          </small>
+        </div>
+      </div>
+      <div class="row mb-3 mb-xl-0">
+        <div class="col-12">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              class="w-100"
+              id="email"
+              formControlName="email"
+              autocomplete="off"
+              [ngClass]="{ 'ng-dirty ng-invalid': form.get('email')?.invalid && form.get('email')?.dirty }"
+            />
+            <label for="email">Email</label>
+          </p-floatlabel>
+          <small *ngIf="form.get('email')?.invalid && form.get('email')?.dirty" class="text-danger">
+            {{ getErrorMessage('email') }}
+          </small>
+        </div>
+      </div>
+    </section>
+    <section class="container" id="action-buttons-wrapper">
+      <div class="row">
+        <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+          <p-button [styleClass]="'w-100'" (onClick)="onSubmitForm()" [raised]="true" label="Confirm" [disabled]="!form.valid" />
+        </div>
+        <div class="col-12 col-xl-6 mb-4 mb-xl-0">
+          <p-button [styleClass]="'w-100'" (onClick)="onDialogHide()" [outlined]="true" label="Cancel" />
+        </div>
+      </div>
+    </section>
+  </form>
+</p-dialog>
