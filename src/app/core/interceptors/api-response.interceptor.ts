@@ -15,7 +15,7 @@ export const apiResponseInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       console.log(error);
-      if (error.status === 401) {
+      if (error.error.code === 401) {
         confirmDialogService.showConfirmDialog(
           'Unauthorized',
           error.error.message,

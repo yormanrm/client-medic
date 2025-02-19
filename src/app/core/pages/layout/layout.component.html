@@ -1,9 +1,12 @@
+<!-- src/app/core/pages/layout/layout.component.html -->
 <core-header></core-header>
-<main class="my-4 p-4 container bg-light rounded">
-    <section class="row">
-        <div class="col-12">
-            <router-outlet></router-outlet>
-        </div>
-    </section>
+<main class="flex-grow-1 d-flex justify-content-center align-items-center">
+    <article class="container">
+        <section class="row">
+            <div class="col-12">
+                <router-outlet></router-outlet>
+            </div>
+        </section>
+    </article>
 </main>
 <core-footer></core-footer>

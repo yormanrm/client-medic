@@ -41,7 +41,10 @@ export class DoctorsComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleVisibleChange(visible: boolean) {
-    this.visible = visible;
+  handleDoctorDialog(event: any): void {
+    this.visible = event?.visible;
+    if (event?.existChange) {
+      this.getDoctors();
+    }
   }
 }

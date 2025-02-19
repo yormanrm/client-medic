@@ -30,8 +30,8 @@ import { CommonModule } from '@angular/common';
 })
 export class DoctorFormDialogComponent implements OnDestroy {
   @Input() public visible: boolean = false;
-  @Output() public visibleChange: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
+  @Output() public visibleChange: EventEmitter<any> =
+    new EventEmitter<any>();
 
   private fb = inject(FormBuilder);
   private service = inject(DoctorsService);
@@ -57,9 +57,7 @@ export class DoctorFormDialogComponent implements OnDestroy {
         ],
       }),
       birthday: new FormControl<string>('', {
-        validators: [
-          Validators.required
-        ],
+        validators: [Validators.required],
       }),
       specialty: new FormControl<string>('', {
         validators: [
@@ -78,16 +76,10 @@ export class DoctorFormDialogComponent implements OnDestroy {
         ],
       }),
       telephone: new FormControl<string>('', {
-        validators: [
-          Validators.required,
-          Validators.pattern('^\\+52\\d{10}$'),
-        ],
+        validators: [Validators.required, Validators.pattern('^\\+52\\d{10}$')],
       }),
       email: new FormControl<string>('', {
-        validators: [
-          Validators.required,
-          Validators.email,
-        ],
+        validators: [Validators.required, Validators.email],
       }),
     });
   }
@@ -157,16 +149,25 @@ export class DoctorFormDialogComponent implements OnDestroy {
   }
 
   onSubmitForm(): void {
-    this.suscription = this.service.register(this.form.value).subscribe({
+    this.suscription = this.service.register(this.form).subscribe({
       next: (response: IApiResponse) => {
+        const message = this.buildMessage(
+          response.data?.fullName,
+          response.data?.username,
+          response.data?.password
+        );
+        this.generateTxtFile(
+          message,
+          `${response.data?.fullName}_credentials.txt`
+        );
         this.confirmDialogService.showConfirmDialog(
           response.message,
-          'Welcome ' + response.data?.fullName,
+          'Credentials generated successfully. Please bring the credentials to the authorized personnel for use and indicate that the password must be changed once you log in for the first time.',
           () => {
-            this.onDialogHide();
+            this.onDialogHide(true);
           },
           () => {},
-          false // No mostrar el botón de cancelar
+          false
         );
       },
       error: (error: IApiResponse) => {
@@ -175,15 +176,40 @@ export class DoctorFormDialogComponent implements OnDestroy {
           error.message,
           () => {},
           () => {},
-          false // No mostrar el botón de cancelar
+          false
         );
       },
     });
   }
 
-  onDialogHide(): void {
+  buildMessage(fullName: string, username: string, password: string): string {
+    return `The access credentials for Dr. ${fullName} are as follows:\nUsername: ${username}\nPassword: ${password}\nThe password must be changed once you log in for the first time.`;
+  }
+
+  generateTxtFile(content: string, fileName: string): void {
+    // Crea un nuevo Blob con el contenido proporcionado y especifica el tipo MIME como 'text/plain'
+    const blob = new Blob([content], { type: 'text/plain' });
+    // Crea una URL de objeto para el Blob, que se puede usar como una URL de descarga
+    const url = window.URL.createObjectURL(blob);
+    // Crea un nuevo elemento <a> (enlace)
+    const a = document.createElement('a');
+    // Establece el atributo href del enlace a la URL del objeto
+    a.href = url;
+    // Establece el atributo download del enlace al nombre de archivo proporcionado
+    a.download = fileName;
+    // Añade el enlace al cuerpo del documento
+    document.body.appendChild(a);
+    // Simula un clic en el enlace para iniciar la descarga del archivo
+    a.click();
+    // Elimina el enlace del cuerpo del documento
+    document.body.removeChild(a);
+    // Revoca la URL del objeto para liberar memoria
+    window.URL.revokeObjectURL(url);
+  }
+
+  onDialogHide(existChange: boolean): void {
     this.form = this.initializeForm();
     this.visible = false;
-    this.visibleChange.emit(this.visible);
+    this.visibleChange.emit({ visible: this.visible, existChange: existChange });
   }
 }

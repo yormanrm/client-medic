@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { firstValueFrom, Observable } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api-response.interface';
 import { HttpParamsBuilderService } from '../../../core/services/http-params-builder.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,8 @@ export class DoctorsService {
   private httpParamsBuilder = inject(HttpParamsBuilderService);
   private url: string = environment.apiUrl;
 
-  public register(doctor: any): Observable<IApiResponse> {
-    return this.http.post<IApiResponse>(this.url + '/doctor/register', doctor);
+  public register(doctor: FormGroup): Observable<IApiResponse> {
+    return this.http.post<IApiResponse>(this.url + '/doctor/register', doctor.value);
   }
 
   public getAll(): Observable<IApiResponse> {

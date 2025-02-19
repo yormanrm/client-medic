@@ -3,7 +3,7 @@
     <div class="col-auto">
       <p-button
         [styleClass]="'w-100'"
-        (click)="handleVisibleChange(true)"
+        (click)="visible = true"
         [raised]="true"
         label="New doctor"
       />
@@ -11,37 +11,39 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <div class="table-responsive">
-        <table class="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Full Name</th>
-              <th scope="col">Birthday</th>
-              <th scope="col">Specialty</th>
-              <th scope="col">Professional License</th>
-              <th scope="col">Telephone</th>
-              <th scope="col">Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (doctor of doctors; track $index) {
-            <tr>
-              <th scope="row">{{ doctor.fullName }}</th>
-              <td>{{ doctor.birthday | date }}</td>
-              <td>{{ doctor.specialty }}</td>
-              <td>{{ doctor.professionalLicense }}</td>
-              <td>{{ doctor.telephone }}</td>
-              <td>{{ doctor.email }}</td>
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+      <p-table
+        [value]="doctors"
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Full Name</th>
+            <th>Birthday</th>
+            <th>Specialty</th>
+            <th>Professional License</th>
+            <th>Telephone</th>
+            <th>Email</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-doctor>
+          <tr>
+            <td>{{ doctor.fullName }}</td>
+            <td>{{ doctor.birthday | date }}</td>
+            <td>{{ doctor.specialty }}</td>
+            <td>{{ doctor.professionalLicense }}</td>
+            <td>{{ doctor.telephone }}</td>
+            <td>{{ doctor.email }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </section>
 
 <app-doctor-form-dialog
   [visible]="visible"
-  (visibleChange)="handleVisibleChange($event)"
+  (visibleChange)="handleDoctorDialog($event)"
 ></app-doctor-form-dialog>

@@ -1,7 +1,7 @@
 <p-dialog
   header="New doctor"
   [(visible)]="visible"
-  (onHide)="onDialogHide()"
+  [closable]="false"
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
@@ -124,7 +124,7 @@
           <p-button [styleClass]="'w-100'" (onClick)="onSubmitForm()" [raised]="true" label="Confirm" [disabled]="!form.valid" />
         </div>
         <div class="col-12 col-xl-6 mb-4 mb-xl-0">
-          <p-button [styleClass]="'w-100'" (onClick)="onDialogHide()" [outlined]="true" label="Cancel" />
+          <p-button [styleClass]="'w-100'" (onClick)="onDialogHide(false)" [outlined]="true" label="Cancel" />
         </div>
       </div>
     </section>

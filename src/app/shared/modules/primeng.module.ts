@@ -5,6 +5,7 @@ import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { Dialog } from 'primeng/dialog';
 import { DatePicker } from 'primeng/datepicker';
+import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FloatLabelModule,
     Dialog,
     DatePicker,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TableModule
   ],
   exports: [
     ButtonModule,
@@ -24,7 +26,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FloatLabelModule,
     Dialog,
     DatePicker,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TableModule
   ]
 })
 export class PrimeNGModule { }
